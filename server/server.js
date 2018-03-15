@@ -1,24 +1,21 @@
 
 var port = process.env.PORT || 5000;
-var app = require('http').createServer(handler).listen(port);
-var io = require('socket.io')(app);
-var fs = require('fs');
 
-console.log(port);
+var path = require('path');
+var express = require('express');
 
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-function handler(req, res){
-    fs.readFile(__dirname + '/../client/index.html',
-    function (err, data) {
-        if (err) {
-        res.writeHead(500);
-        return res.end('Error loading index.html');
-        }
+app.set('port', port);
+app.use(express.static(path.join(__dirname, '/../client/')));
+server.listen(port);
 
-        res.writeHead(200);
-        res.end(data);
-    });
-}
+var handler = app.listen(app.get('port'), function() {
+    var port = handler.address().port;
+});
+
 
 io.on('connection', function(socket){
     console.log('a user connected');

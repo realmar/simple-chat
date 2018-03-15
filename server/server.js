@@ -27,3 +27,13 @@ io.on('connection', function(socket){
         console.log('a user disconnected');
     });
 });
+
+//random name
+var names = require('./animals.json');
+var adjectives = require('./adjectives.json');
+
+var generate = function(){
+    var first = Math.floor(Math.random() * adjectives.length);
+    var second = Math.floor(Math.random() * names.length);
+    return adjectives[first] + " " + names[second];
+}

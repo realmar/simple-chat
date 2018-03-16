@@ -94,12 +94,14 @@ form input {
 
 .username {
     margin: 0;
+    font-weight: bolder;
     display: inline-block;
     width: 75%;
 }
 
 .time {
     margin: 0;
+    font-weight: bolder;
     display: inline-block;
     width: 25%;
     text-align: right;

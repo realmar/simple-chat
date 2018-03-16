@@ -49,6 +49,8 @@ var chatModule = function () {
 
     my.pushNewMessage = function(messageObj){
         var username = $('<div>').text(messageObj.user).addClass('username');
+        username.css('color', messageObj.usercolor);
+
         var time = $('<div>').text(messageObj.time).addClass('time');
         var message = $('<div>').text(messageObj.message).addClass('message');
 
@@ -60,8 +62,9 @@ var chatModule = function () {
         my.setMessagesHeight();
     }
 
-    my.pushNewStatusMessage = function(message){
-        var statusMessage = $('<div>').text(message).addClass('status');
+    my.pushNewStatusMessage = function(messageObj){
+        var statusMessage = $('<div>').text(messageObj.message).addClass('status');
+        statusMessage.css('color', messageObj.usercolor);
         
         messages.append(statusMessage);
         my.setMessagesHeight();

@@ -17,16 +17,17 @@ var handler = app.listen(app.get('port'), function() {
 
 
 io.on('connection', function(socket){
-    var username = generate();
-    
-    io.emit('status message', username + " joined!");
+    var username = generateUsername();
+    var userColor = generateUserColor();
+
+    io.emit('status message', {message: username + " joined!", usercolor: userColor});
 
     socket.on('chat message', function(msg){
-        io.emit('chat message', {message: msg, user: username, time: getTimeOfDay()});
+        io.emit('chat message', {message: msg, user: username, time: getTimeOfDay(), usercolor: userColor});
     });
 
     socket.on('disconnect', function(){
-        io.emit('status message', username + " left!");
+        io.emit('status message', {message: username + " left!", usercolor: userColor});
     });
 });
 
@@ -34,12 +35,25 @@ io.on('connection', function(socket){
 var names = require('./animals.json');
 var adjectives = require('./adjectives.json');
 
-var generate = function(){
+var generateUsername = function(){
     var first = Math.floor(Math.random() * adjectives.length);
     var second = Math.floor(Math.random() * names.length);
     return adjectives[first] + " " + names[second];
 }
 
+
+//random user color
+var randomColor = require('randomcolor');
+
+var generateUserColor = function(){
+    return randomColor({
+        luminosity: 'dark',
+        hue: 'random'
+    });
+}
+
+
+//get current Time
 var getTimeOfDay = function(){
     var date = new Date();
     var hour = date.getHours();
@@ -48,3 +62,5 @@ var getTimeOfDay = function(){
     min = (min < 10 ? "0" : "") + min; 
     return hour + ":" + min;
 }
+
+

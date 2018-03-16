@@ -23,7 +23,7 @@ io.on('connection', function(socket){
     io.emit('status message', {message: username + " joined!", usercolor: userColor});
 
     socket.on('chat message', function(msg){
-        io.emit('chat message', {message: msg, user: username, time: getTimeOfDay(), usercolor: userColor});
+        io.emit('chat message', {message: msg, user: username, time: getDateTimeString(), usercolor: userColor});
     });
 
     socket.on('disconnect', function(){
@@ -41,7 +41,6 @@ var generateUsername = function(){
     return adjectives[first] + " " + names[second];
 }
 
-
 //random user color
 var randomColor = require('randomcolor');
 
@@ -52,15 +51,6 @@ var generateUserColor = function(){
     });
 }
 
-
-//get current Time
-var getTimeOfDay = function(){
-    var date = new Date();
-    var hour = date.getHours();
-    hour = (hour < 10 ? "0" : "") + hour;
-    var min  = date.getMinutes();
-    min = (min < 10 ? "0" : "") + min; 
-    return hour + ":" + min;
+var getDateTimeString = function(){
+    return new Date().toUTCString();
 }
-
-

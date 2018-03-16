@@ -1,3 +1,13 @@
+var dateModule = {
+    parseDate: function(timestamp) {
+        return new Date(Date.parse(timestamp));
+    },
+
+    formatDate: function(date) {
+        return date.getHours() + ':' + date.getMinutes();
+    }
+}
+
 var chatModule = function () {
     var socket = io();
 
@@ -51,7 +61,7 @@ var chatModule = function () {
         var username = $('<div>').text(messageObj.user).addClass('username');
         username.css('color', messageObj.usercolor);
 
-        var time = $('<div>').text(messageObj.time).addClass('time');
+        var time = $('<div>').text(dateModule.formatDate(dateModule.parseDate(messageObj.time))).addClass('time');
         var message = $('<div>').text(messageObj.message).addClass('message');
 
         var headerDiv = $('<div>').append(username).append(time).addClass('message-header');

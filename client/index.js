@@ -1,21 +1,21 @@
-$(function () {
+var chatModule = function () {
     var socket = io();
 
     var myWindow = $(window);
     var messageWindow = $('#messageWindow');
     var messages = $('#messages');
     var form = $('form');
+    var input = $('#m');
     
     var my = {};
 
     my.init = function() {
-        form.focus();
         
         my.attachHandlers();
         my.attachSocketHandlers();
         my.setMessagesHeight();
 
-        form.show();
+        input.focus();
     }
 
     my.setMessagesHeight = function() {
@@ -25,8 +25,10 @@ $(function () {
 
     my.attachHandlers = function() {
         form.submit(function(){
-            socket.emit('chat message', $('#m').val());
-            $('#m').val('');
+            if(!$.trim(input.val()) == ''){
+                socket.emit('chat message', input.val());
+                input.val('');
+            }
             return false;
         });
         
@@ -51,7 +53,9 @@ $(function () {
             my.setMessagesHeight();
         });
     };
-    
+
     my.init();
     return my;
-});
+}
+
+$(document).ready(chatModule);

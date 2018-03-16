@@ -4,7 +4,13 @@ var dateModule = {
     },
 
     formatDate: function(date) {
-        return date.getHours() + ':' + date.getMinutes();
+        var hours = String(date.getHours());
+        var minutes = String(date.getMinutes());
+
+        hours = (hours < 10 ? "0" : "") + hours;
+        minutes = (minutes < 10 ? "0" : "") + minutes; 
+
+        return hours + ':' + minutes;
     }
 }
 

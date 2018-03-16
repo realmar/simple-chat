@@ -37,7 +37,17 @@ $(function () {
 
     my.attachSocketHandlers = function(){
         socket.on('chat message', function(msg){
-            messages.append($('<li>').text(msg));
+            messages.append($('<li>').text(msg.user + ": " + msg.message));
+            my.setMessagesHeight();
+        });
+
+        socket.on('new user', function(msg){
+            messages.append($('<li>').text(msg + " joined chat!"));
+            my.setMessagesHeight();
+        });
+
+        socket.on('user left', function(msg){
+            messages.append($('<li>').text(msg + " left chat!"));
             my.setMessagesHeight();
         });
     };

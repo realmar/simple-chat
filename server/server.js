@@ -19,16 +19,20 @@ var handler = app.listen(app.get('port'), function() {
 io.on('connection', function(socket){
     console.log('a user connected');
 
+    var username = generate();
+    io.emit('new user', username);
+
     socket.on('chat message', function(msg){
-        io.emit('chat message', msg);
+        io.emit('chat message', {message: msg, user: username});
     });
 
     socket.on('disconnect', function(){
+        io.emit('user left', username);
         console.log('a user disconnected');
     });
 });
 
-//random name
+//random name generator
 var names = require('./animals.json');
 var adjectives = require('./adjectives.json');
 

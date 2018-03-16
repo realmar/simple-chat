@@ -17,18 +17,16 @@ var handler = app.listen(app.get('port'), function() {
 
 
 io.on('connection', function(socket){
-    console.log('a user connected');
-
     var username = generate();
-    io.emit('new user', username);
+    
+    io.emit('status message', username + " joined!");
 
     socket.on('chat message', function(msg){
-        io.emit('chat message', {message: msg, user: username});
+        io.emit('chat message', {message: msg, user: username, time: getTimeOfDay()});
     });
 
     socket.on('disconnect', function(){
-        io.emit('user left', username);
-        console.log('a user disconnected');
+        io.emit('status message', username + " left!");
     });
 });
 
@@ -40,4 +38,13 @@ var generate = function(){
     var first = Math.floor(Math.random() * adjectives.length);
     var second = Math.floor(Math.random() * names.length);
     return adjectives[first] + " " + names[second];
+}
+
+var getTimeOfDay = function(){
+    var date = new Date();
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min; 
+    return hour + ":" + min;
 }

@@ -85,6 +85,44 @@ form input {
     cursor: default;
 }
 
+.message-container {
+    width: 100%;
+}
+.message-header {
+    width: 100%;
+}
+
+.username {
+    margin: 0;
+    display: inline-block;
+    width: 75%;
+}
+
+.time {
+    margin: 0;
+    display: inline-block;
+    width: 25%;
+    text-align: right;
+}
+
+.status {
+    position: relative;
+    display: block;
+    text-align: center;
+    color: rgba(82,179,217,0.9);
+    height: 20px;
+    text-shadow: 7px 0px 0px #e5e5e5, 6px 0px 0px #e5e5e5, 5px 0px 0px #e5e5e5, 4px 0px 0px #e5e5e5, 3px 0px 0px #e5e5e5, 2px 0px 0px #e5e5e5, 1px 0px 0px #e5e5e5, 1px 0px 0px #e5e5e5, 0px 0px 0px #e5e5e5, -1px 0px 0px #e5e5e5, -2px 0px 0px #e5e5e5, -3px 0px 0px #e5e5e5, -4px 0px 0px #e5e5e5, -5px 0px 0px #e5e5e5, -6px 0px 0px #e5e5e5, -7px 0px 0px #e5e5e5;
+    box-shadow: inset 20px 0px 0px #e5e5e5, inset -20px 0px 0px #e5e5e5, inset 0px -2px 0px #d7d7d7;
+    line-height: 38px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
 ::-webkit-scrollbar {
     min-width: 12px;
     width: 12px;

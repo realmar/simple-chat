@@ -39,20 +39,33 @@ var chatModule = function () {
 
     my.attachSocketHandlers = function(){
         socket.on('chat message', function(msg){
-            messages.append($('<li>').text(msg.user + ": " + msg.message));
-            my.setMessagesHeight();
+            my.pushNewMessage(msg);
         });
 
-        socket.on('new user', function(msg){
-            messages.append($('<li>').text(msg + " joined chat!"));
-            my.setMessagesHeight();
-        });
-
-        socket.on('user left', function(msg){
-            messages.append($('<li>').text(msg + " left chat!"));
-            my.setMessagesHeight();
+        socket.on('status message', function(msg){
+            my.pushNewStatusMessage(msg);
         });
     };
+
+    my.pushNewMessage = function(messageObj){
+        var username = $('<div>').text(messageObj.user).addClass('username');
+        var time = $('<div>').text(messageObj.time).addClass('time');
+        var message = $('<div>').text(messageObj.message).addClass('message');
+
+        var headerDiv = $('<div>').append(username).append(time).addClass('message-header');
+        var div = $('<div>').append(headerDiv).append(message).addClass('message-container');
+        var html = $('<li>').html(div);
+
+        messages.append(html)
+        my.setMessagesHeight();
+    }
+
+    my.pushNewStatusMessage = function(message){
+        var statusMessage = $('<div>').text(message).addClass('status');
+        
+        messages.append(statusMessage);
+        my.setMessagesHeight();
+    }
 
     my.init();
     return my;
